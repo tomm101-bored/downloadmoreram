@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Download More RAM</title>
+  <style>
+    body {
+      background-color: #ccffcc; 
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: black;
+      margin: 20px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+    .buttons {
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    #progressContainer {
+      width: 80%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-top: 20px;
+      display: none;
+    }
+    #progressBar {
+      height: 30px;
+      width: 0%;
+      background-color: #00cc00;
+      border-radius: 5px;
+    }
+    #statusText {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Download more RAM</h1>
+  <div class="container">
+    <div class="buttons">
+      <button onclick="startDownload()">16GB</button>
+      <button onclick="startDownload()">32GB</button>
+      <button onclick="startDownload()">64GB</button>
+    </div>
+    <div id="statusText"></div>
+    <div id="progressContainer">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+  
+  <script>
+    function startDownload() {
+      const progressBar = document.getElementById("progressBar");
+      const progressContainer = document.getElementById("progressContainer");
+      const statusText = document.getElementById("statusText");
+      progressBar.style.width = "0%";
+      statusText.textContent = "Downloading ram...";
+      progressContainer.style.display = "block";
+      
+      const duration = 15000;
+      const interval = 100;
+      const increment = 100 / (duration / interval);
+      let width = 0;
+      
+      const progressInterval = setInterval(() => {
+        width += increment;
+        if (width >= 100) {
+          width = 100;
+          clearInterval(progressInterval);
+          statusText.textContent = "Download finished. Enjoy!";
+        }
+        progressBar.style.width = width + "%";
+      }, interval);
+    }
+  </script>
+</body>
+</html>
