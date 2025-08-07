@@ -1,96 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Download More RAM</title>
-  <style>
-    body {
-      background-color: #ccffcc; 
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-    h1 {
-      color: black;
-      margin: 20px;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 80vh;
-    }
-    .buttons {
-      margin: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .buttons button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
-      cursor: pointer;
-    }
-    #progressContainer {
-      width: 80%;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      margin-top: 20px;
-      display: none;
-    }
-    #progressBar {
-      height: 30px;
-      width: 0%;
-      background-color: #00cc00;
-      border-radius: 5px;
-    }
-    #statusText {
-      margin-top: 10px;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Download more RAM</h1>
-  <div class="container">
-    <div class="buttons">
-      <button onclick="startDownload()">16GB</button>
-      <button onclick="startDownload()">32GB</button>
-      <button onclick="startDownload()">64GB</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download More RAM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-green-100 to-green-300 font-sans text-center flex items-center justify-center px-4">
+    <div class="max-w-md w-full">
+      <h1 class="text-4xl font-bold text-gray-800 mb-8 drop-shadow-lg">Download More RAM</h1>
+
+      <div class="flex flex-col gap-4">
+        <button onclick="startDownload()" class="bg-green-600 hover:bg-green-700 active:scale-95 text-white py-3 rounded-xl shadow transition-all duration-200 text-lg">16GB</button>
+        <button onclick="startDownload()" class="bg-green-600 hover:bg-green-700 active:scale-95 text-white py-3 rounded-xl shadow transition-all duration-200 text-lg">32GB</button>
+        <button onclick="startDownload()" class="bg-green-600 hover:bg-green-700 active:scale-95 text-white py-3 rounded-xl shadow transition-all duration-200 text-lg">64GB</button>
+      </div>
+
+      <div id="statusText" class="mt-6 text-lg text-gray-700 font-medium"></div>
+
+      <div id="progressContainer" class="mt-4 w-full h-6 bg-gray-300 rounded-full overflow-hidden hidden">
+        <div id="progressBar" class="h-full bg-green-500 transition-all duration-100 ease-linear" style="width: 0%"></div>
+      </div>
     </div>
-    <div id="statusText"></div>
-    <div id="progressContainer">
-      <div id="progressBar"></div>
-    </div>
-  </div>
-  
-  <script>
-    function startDownload() {
-      const progressBar = document.getElementById("progressBar");
-      const progressContainer = document.getElementById("progressContainer");
-      const statusText = document.getElementById("statusText");
-      progressBar.style.width = "0%";
-      statusText.textContent = "Downloading ram...";
-      progressContainer.style.display = "block";
-      
-      const duration = 15000;
-      const interval = 100;
-      const increment = 100 / (duration / interval);
-      let width = 0;
-      
-      const progressInterval = setInterval(() => {
-        width += increment;
-        if (width >= 100) {
-          width = 100;
-          clearInterval(progressInterval);
-          statusText.textContent = "Download finished. Enjoy!";
-        }
-        progressBar.style.width = width + "%";
-      }, interval);
-    }
-  </script>
-</body>
+
+    <script>
+      function startDownload() {
+        const progressBar = document.getElementById("progressBar");
+        const progressContainer = document.getElementById("progressContainer");
+        const statusText = document.getElementById("statusText");
+
+        progressBar.style.width = "0%";
+        statusText.textContent = "Downloading RAM...";
+        progressContainer.classList.remove("hidden");
+
+        const duration = 15000;
+        const interval = 100;
+        const increment = 100 / (duration / interval);
+        let width = 0;
+
+        const progressInterval = setInterval(() => {
+          width += increment;
+          if (width >= 100) {
+            width = 100;
+            clearInterval(progressInterval);
+            statusText.textContent = "Download finished. Enjoy!";
+          }
+          progressBar.style.width = width + "%";
+        }, interval);
+      }
+    </script>
+  </body>
 </html>
